@@ -1,0 +1,1350 @@
+{
+  "uid": "evo-telemetry",
+  "title": "EvoLib autonomous telemetry",
+  "schemaVersion": 41,
+  "version": 1,
+  "editable": true,
+  "tags": [
+    "VEX",
+    "EvoLib"
+  ],
+  "panels": [
+    {
+      "id": 1,
+      "title": "Executed route (inches)",
+      "description": "Recorded odometry, not ground truth. Heading zero is +Y, clockwise positive. Field center is (0, 0); boundaries are +/-72 inches. Pose resets can cause jumps.",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 0,
+        "w": 12,
+        "h": 12
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "x_in",
+              "text": "x_in",
+              "type": "number"
+            },
+            {
+              "selector": "y_in",
+              "text": "y_in",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "lengthin",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "Y (inches)"
+          },
+          "min": -72,
+          "max": 72
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "x_in"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "lengthin"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "X (inches)"
+              },
+              {
+                "id": "min",
+                "value": -72
+              },
+              {
+                "id": "max",
+                "value": 72
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "x_in"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 2,
+      "title": "Motor temperature",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 0,
+        "w": 12,
+        "h": 6
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "m5_left_front_temp_c",
+              "text": "m5_left_front_temp_c",
+              "type": "number"
+            },
+            {
+              "selector": "m13_left_middle_temp_c",
+              "text": "m13_left_middle_temp_c",
+              "type": "number"
+            },
+            {
+              "selector": "m12_left_back_temp_c",
+              "text": "m12_left_back_temp_c",
+              "type": "number"
+            },
+            {
+              "selector": "m17_right_front_temp_c",
+              "text": "m17_right_front_temp_c",
+              "type": "number"
+            },
+            {
+              "selector": "m14_right_middle_temp_c",
+              "text": "m14_right_middle_temp_c",
+              "type": "number"
+            },
+            {
+              "selector": "m15_right_back_temp_c",
+              "text": "m15_right_back_temp_c",
+              "type": "number"
+            },
+            {
+              "selector": "m19_intake_bottom_temp_c",
+              "text": "m19_intake_bottom_temp_c",
+              "type": "number"
+            },
+            {
+              "selector": "m20_intake_top_temp_c",
+              "text": "m20_intake_top_temp_c",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "celsius",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "celsius"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 3,
+      "title": "Measured motor speed",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 6,
+        "w": 12,
+        "h": 6
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "m5_left_front_rpm",
+              "text": "m5_left_front_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m13_left_middle_rpm",
+              "text": "m13_left_middle_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m12_left_back_rpm",
+              "text": "m12_left_back_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m17_right_front_rpm",
+              "text": "m17_right_front_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m14_right_middle_rpm",
+              "text": "m14_right_middle_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m15_right_back_rpm",
+              "text": "m15_right_back_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m19_intake_bottom_rpm",
+              "text": "m19_intake_bottom_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m20_intake_top_rpm",
+              "text": "m20_intake_top_rpm",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "rotrpm",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "rotrpm"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 4,
+      "title": "Motor current",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 12,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "m5_left_front_current_ma",
+              "text": "m5_left_front_current_ma",
+              "type": "number"
+            },
+            {
+              "selector": "m13_left_middle_current_ma",
+              "text": "m13_left_middle_current_ma",
+              "type": "number"
+            },
+            {
+              "selector": "m12_left_back_current_ma",
+              "text": "m12_left_back_current_ma",
+              "type": "number"
+            },
+            {
+              "selector": "m17_right_front_current_ma",
+              "text": "m17_right_front_current_ma",
+              "type": "number"
+            },
+            {
+              "selector": "m14_right_middle_current_ma",
+              "text": "m14_right_middle_current_ma",
+              "type": "number"
+            },
+            {
+              "selector": "m15_right_back_current_ma",
+              "text": "m15_right_back_current_ma",
+              "type": "number"
+            },
+            {
+              "selector": "m19_intake_bottom_current_ma",
+              "text": "m19_intake_bottom_current_ma",
+              "type": "number"
+            },
+            {
+              "selector": "m20_intake_top_current_ma",
+              "text": "m20_intake_top_current_ma",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "mamp",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "mamp"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 5,
+      "title": "Applied motor voltage",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 12,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "m5_left_front_voltage_mv",
+              "text": "m5_left_front_voltage_mv",
+              "type": "number"
+            },
+            {
+              "selector": "m13_left_middle_voltage_mv",
+              "text": "m13_left_middle_voltage_mv",
+              "type": "number"
+            },
+            {
+              "selector": "m12_left_back_voltage_mv",
+              "text": "m12_left_back_voltage_mv",
+              "type": "number"
+            },
+            {
+              "selector": "m17_right_front_voltage_mv",
+              "text": "m17_right_front_voltage_mv",
+              "type": "number"
+            },
+            {
+              "selector": "m14_right_middle_voltage_mv",
+              "text": "m14_right_middle_voltage_mv",
+              "type": "number"
+            },
+            {
+              "selector": "m15_right_back_voltage_mv",
+              "text": "m15_right_back_voltage_mv",
+              "type": "number"
+            },
+            {
+              "selector": "m19_intake_bottom_voltage_mv",
+              "text": "m19_intake_bottom_voltage_mv",
+              "type": "number"
+            },
+            {
+              "selector": "m20_intake_top_voltage_mv",
+              "text": "m20_intake_top_voltage_mv",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "mvolt",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "mvolt"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 6,
+      "title": "Heading",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 19,
+        "w": 12,
+        "h": 6
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "heading_deg",
+              "text": "heading_deg",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "degree",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "degree"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 7,
+      "title": "Ground speed magnitude",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 19,
+        "w": 12,
+        "h": 6
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "linear_speed_ips",
+              "text": "linear_speed_ips",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix:in/s",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "suffix:in/s"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 8,
+      "title": "Battery voltage",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 25,
+        "w": 12,
+        "h": 6
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "battery_mv",
+              "text": "battery_mv",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "mvolt",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "mvolt"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 9,
+      "title": "Missed samples",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 25,
+        "w": 12,
+        "h": 6
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "missed_samples",
+              "text": "missed_samples",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "short",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "short"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 10,
+      "title": "Requested motor velocity",
+      "description": "PROS target velocity; voltage-mode move() commands are best compared using the applied voltage panel.",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 31,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "m5_left_front_target_rpm",
+              "text": "m5_left_front_target_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m13_left_middle_target_rpm",
+              "text": "m13_left_middle_target_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m12_left_back_target_rpm",
+              "text": "m12_left_back_target_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m17_right_front_target_rpm",
+              "text": "m17_right_front_target_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m14_right_middle_target_rpm",
+              "text": "m14_right_middle_target_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m15_right_back_target_rpm",
+              "text": "m15_right_back_target_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m19_intake_bottom_target_rpm",
+              "text": "m19_intake_bottom_target_rpm",
+              "type": "number"
+            },
+            {
+              "selector": "m20_intake_top_target_rpm",
+              "text": "m20_intake_top_target_rpm",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "rotrpm",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "rotrpm"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    },
+    {
+      "id": 11,
+      "title": "Angular speed",
+      "description": "",
+      "type": "xychart",
+      "pluginVersion": "13.2.1",
+      "datasource": {
+        "type": "yesoreyeram-infinity-datasource",
+        "uid": "evo-sd"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 31,
+        "w": 12,
+        "h": 7
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "yesoreyeram-infinity-datasource",
+            "uid": "evo-sd"
+          },
+          "type": "csv",
+          "source": "url",
+          "url": "http://csv/${run:percentencode}",
+          "url_options": {
+            "method": "GET"
+          },
+          "parser": "backend",
+          "format": "table",
+          "root_selector": "",
+          "columns": [
+            {
+              "selector": "elapsed_s",
+              "text": "elapsed_s",
+              "type": "number"
+            },
+            {
+              "selector": "angular_speed_dps",
+              "text": "angular_speed_dps",
+              "type": "number"
+            }
+          ],
+          "csv_options": {
+            "skip_empty_lines": true,
+            "skip_lines_with_error": true
+          }
+        }
+      ],
+      "fieldConfig": {
+        "defaults": {
+          "unit": "suffix:deg/s",
+          "custom": {
+            "show": "lines",
+            "lineWidth": 2,
+            "pointSize": {
+              "fixed": 3
+            },
+            "axisLabel": "suffix:deg/s"
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "elapsed_s"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "s"
+              },
+              {
+                "id": "custom.axisLabel",
+                "value": "elapsed_s"
+              }
+            ]
+          }
+        ]
+      },
+      "options": {
+        "mapping": "auto",
+        "series": [
+          {
+            "x": {
+              "matcher": {
+                "id": "byName",
+                "options": "elapsed_s"
+              }
+            }
+          }
+        ],
+        "legend": {
+          "showLegend": true,
+          "displayMode": "list",
+          "placement": "bottom"
+        },
+        "tooltip": {
+          "mode": "single"
+        }
+      }
+    }
+  ],
+  "time": {
+    "from": "now-1h",
+    "to": "now"
+  },
+  "timezone": "browser",
+  "templating": {
+    "list": [
+      {
+        "name": "run",
+        "label": "CSV filename",
+        "type": "textbox",
+        "query": "example.csv",
+        "current": {
+          "text": "example.csv",
+          "value": "example.csv"
+        }
+      }
+    ]
+  }
+}

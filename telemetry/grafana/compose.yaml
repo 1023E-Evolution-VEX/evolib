@@ -1,0 +1,19 @@
+services:
+  csv:
+    image: nginx:stable-alpine
+    volumes:
+      - ./data:/usr/share/nginx/html:ro
+  grafana:
+    image: grafana/grafana:13.2.1
+    ports:
+      - "127.0.0.1:3000:3000"
+    environment:
+      GF_INSTALL_PLUGINS: yesoreyeram-infinity-datasource
+    volumes:
+      - grafana-storage:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning:ro
+      - ./dashboards:/var/lib/grafana/dashboards:ro
+    depends_on:
+      - csv
+volumes:
+  grafana-storage:
